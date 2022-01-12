@@ -2,7 +2,15 @@
 Author: Alysha Jardine'''
 
 def main():
-
+    player = next_player("")
+    board = create_board()
+    if not winner(board) or draw_game(board):
+        display_board(board)
+        next(player, board)
+        player = next(player)
+    display_board(board)
+    print("Good game. Thanks for playing, come back soon for a rematch.")
+    
 def create_board():
     board = []
     for square in range(9):
@@ -23,3 +31,26 @@ def draw_game(board):
         if board[square] != "x" and board[square] != "o":
             return False
     return True
+
+def winner(board):
+    return (board[0] == board[1] == board[2] or
+            board[0] == board[3] == board[6] or
+            board[0] == board[4] == board[8] or
+            board[1] == board[4] == board[7] or
+            board[2] == board[5] == board[8] or
+            board[2] == board[4] == board[6] or
+            board[3] == board[4] == board[5] or
+            board[6] == board[7] == board[8])
+
+def turn(player, board):
+    square = int(input("{player}'s turn to play, select square (1-9): "))
+    board[square - 1] = player
+
+def next_player(now):
+    if now == "" or now == "o":
+        return "x"
+    if now == "" or now == "x":
+        return "o"
+
+if __name__ =="__main__":
+    main()
