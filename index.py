@@ -4,12 +4,12 @@ Author: Alysha Jardine'''
 def main():
     player = next_player("")
     board = create_board()
-    if not winner(board) or draw_game(board):
+    while not (winner(board) or draw_game(board)):
         display_board(board)
-        next(player, board)
-        player = next(player)
+        turn(player, board)
+        player = next_player(player)
     display_board(board)
-    print("Good game. Thanks for playing, come back soon for a rematch.")
+    print(f"Good game. Thanks for playing, come back soon for a rematch!")
     
 def create_board():
     board = []
@@ -20,9 +20,9 @@ def create_board():
 def display_board(board):
     print()
     print(f"{board[0]}|{board[1]}|{board[2]}")
-    print("----")
+    print("-----")
     print(f"{board[3]}|{board[4]}|{board[5]}")
-    print("----")
+    print("-----")
     print(f"{board[6]}|{board[7]}|{board[8]}")
     print()
 
@@ -43,7 +43,7 @@ def winner(board):
             board[6] == board[7] == board[8])
 
 def turn(player, board):
-    square = int(input("{player}'s turn to play, select square (1-9): "))
+    square = int(input(f"{player}'s turn to play, select square (1-9): "))
     board[square - 1] = player
 
 def next_player(now):
